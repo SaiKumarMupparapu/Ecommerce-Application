@@ -1,0 +1,61 @@
+# application.yml (gateway)
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      routes:
+
+        # 1. AUTH-SERVICE (No token required for /auth/**)
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+
+        # 2. PRODUCT-SERVICE
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: JwtAuthenticationFilter
+
+        # 3. CART-SERVICE
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - name: JwtAuthenticationFilter
+
+        # 4. ORDER-SERVICE
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - name: JwtAuthenticationFilter
+
+        # 5. REPORT-SERVICE
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/reports/service/**
+          filters:
+            - name: JwtAuthenticationFilter
+
+        # 6. PAYMENT-SERVICE
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payment/**
+          filters:
+            - name: JwtAuthenticationFilter
+       
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
