@@ -11,6 +11,7 @@
     <module>report-service</module>
     <module>ReportsDto</module>
     <module>RezorPay</module>
-    <module>CommonSecurity</module>
+<!--    <module>CommonSecurity</module>
+-->    <module>CommonSecurityUtils</module>
   </modules>
 </project>

@@ -7,7 +7,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 
 @SpringBootApplication
-@EnableAdminServer
 @EnableDiscoveryClient
 public class Application {
 

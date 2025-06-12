@@ -23,7 +23,7 @@ import com.example.demo.entity.Products;
 import com.example.demo.service.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
 	@Autowired
 	private ProductService service;
@@ -53,7 +53,7 @@ public class ProductController {
 		return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_SELLER','ROLE_ADMIN'))")
+	@PreAuthorize("hasAnyRole('ROLE_SELLER','ROLE_ADMIN')")
 	@DeleteMapping("/sellerPrd/{id}")
 	public ResponseEntity<String> deletingProductBySeller(@PathVariable("id") Integer sellerProductId) {
 		return service.deleteProduct(sellerProductId)
