@@ -2,11 +2,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>com.example</groupId>
-		<artifactId>EcommerceApplication</artifactId>
+		<artifactId>EcommerceCommonDtos</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
+
 	<artifactId>CommonSecurityUtils</artifactId>
 	<packaging>jar</packaging>
 
@@ -15,17 +18,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>3.2.5</version> <!-- Use your Spring Boot version -->
+			<version>3.2.5</version>
 		</dependency>
 
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>3.2.5</version> <!-- Match with your Spring Boot version -->
+			<version>3.2.5</version>
 		</dependency>
 
-		<!-- JWT using io.jsonwebtoken (JJWT) -->
+		<!-- ✅ JJWT 0.11.5 Modules Only -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -39,39 +42,33 @@
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId> <!-- For JSON parser -->
+			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
 
-
-		<!-- Spring Context (for @Component, @Autowired) -->
+		<!-- Spring Context -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>6.1.5</version>
 		</dependency>
 
-		<!-- Spring Security Core (for filters and security-related classes) -->
+		<!-- Spring Security Core -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>6.1.5</version>
 		</dependency>
 
-		<!-- Spring Security Web (for OncePerRequestFilter, etc.) -->
+		<!-- Spring Security Web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>6.1.5</version>
 		</dependency>
 
-		<!-- JWT library -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-
+		<!-- ❌ REMOVED: jjwt 0.9.1 (conflicting) -->
 	</dependencies>
+
 </project>

@@ -1,17 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
-  <artifactId>EcommerceApplication</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <modules>
-    <module>common-dtos</module>
-    <module>order-service</module>
-    <module>report-service</module>
-    <module>ReportsDto</module>
-    <module>RezorPay</module>
-<!--    <module>CommonSecurity</module>
--->    <module>CommonSecurityUtils</module>
-  </modules>
+    <groupId>com.example</groupId>
+    <artifactId>EcommerceCommonDtos</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>CommonSecurityUtils</module>
+        <module>ReportsDto</module>
+        <module>RezorPay</module>
+    </modules>
+
+    <name>Ecommerce Common DTOs</name>
 </project>

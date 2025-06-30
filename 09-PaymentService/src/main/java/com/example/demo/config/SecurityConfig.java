@@ -12,22 +12,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.security.JwtAuthFilter;
 
 @Configuration
-@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+//    @Autowired
+//    private JwtAuthFilter jwtAuthFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                		.requestMatchers("/api/payment/**").hasRole("USER")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+//                .formLogin()
+//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

@@ -1,59 +1,51 @@
-# application.yml (gateway)
+# Conversion to YAML from Properties formar report
+# Warnings:
+# - The yaml file had comments which are lost in the refactoring!
 spring:
   application:
     name: api-gateway
   cloud:
     gateway:
       routes:
-
-        # 1. AUTH-SERVICE (No token required for /auth/**)
-        - id: auth-service
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth/**
-
-        # 2. PRODUCT-SERVICE
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api/product/**
-          filters:
-            - name: JwtAuthenticationFilter
-
-        # 3. CART-SERVICE
-        - id: cart-service
-          uri: lb://cart-service
-          predicates:
-            - Path=/api/cart/**
-          filters:
-            - name: JwtAuthenticationFilter
-
-        # 4. ORDER-SERVICE
-        - id: order-service
-          uri: lb://order-service
-          predicates:
-            - Path=/api/order/**
-          filters:
-            - name: JwtAuthenticationFilter
-
-        # 5. REPORT-SERVICE
-        - id: report-service
-          uri: lb://report-service
-          predicates:
-            - Path=/reports/service/**
-          filters:
-            - name: JwtAuthenticationFilter
-
-        # 6. PAYMENT-SERVICE
-        - id: payment-service
-          uri: lb://payment-service
-          predicates:
-            - Path=/api/payment/**
-          filters:
-            - name: JwtAuthenticationFilter
-       
+      - id: Auth-service
+        uri: lb://Auth-service
+        predicates:
+        - Path=/auth/**
+      - id: Product-Service
+        uri: lb://Product-Service
+        predicates:
+        - Path=/api/product/**
+      - id: cart-service
+        uri: lb://cart-service
+        predicates:
+        - Path=/api/cart/**
+      - id: order-service
+        uri: lb://order-service
+        predicates:
+        - Path=/api/order/**
+      - id: report-service
+        uri: lb://report-service
+        predicates:
+        - Path=/reports/service/**
+#        filters:
+#        - name: JwtAuthenticationFilter
+#      - id: payment-service
+#        uri: lb://payment-service
+#        predicates:
+#        - Path=/api/payment/**
+#        filters:
+#        - name: JwtAuthenticationFilter
+  main:
+    web-application-type: reactive
+  autoconfigure:
+    exclude: com.example.security.JwtAuthFilter
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
 
 eureka:
   client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+server:
+  port: 5656

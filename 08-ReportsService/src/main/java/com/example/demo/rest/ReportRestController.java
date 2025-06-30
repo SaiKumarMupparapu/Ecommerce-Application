@@ -20,6 +20,7 @@ public class ReportRestController {
 
 	@Autowired
 	private OrdersFeignClinet client;
+	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SELLER')")
 	@PostMapping("/")
 	public ResponseEntity<List<ProductSalesReportDTO>> getSalesReport(@RequestBody ReportFilterDTO filter){

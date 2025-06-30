@@ -27,6 +27,8 @@ public class SecurityConfig {
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form->form.disable())
+                .httpBasic(basic->basic.disable())
                 .build();
     }
 }

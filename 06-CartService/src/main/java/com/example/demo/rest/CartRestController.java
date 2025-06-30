@@ -17,6 +17,7 @@ import com.example.demo.dto.CartItemsDto;
 import com.example.demo.response.ApiResponse;
 import com.example.demo.service.CartService;
 
+@PreAuthorize("hasRole('ROLE_USER')")
 @RestController
 @RequestMapping("/api/cart")
 public class CartRestController {
@@ -47,8 +48,8 @@ public class CartRestController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@PostMapping("/add/item/{id}")
-	public ResponseEntity<ApiResponse<String>> addItemToCart(@PathVariable("id") Integer cartId,@RequestBody CartItemsDto items) {
+	@PostMapping("/add/item/{cartId}")
+	public ResponseEntity<ApiResponse<String>> addItemToCart(@PathVariable("cartId") Integer cartId,@RequestBody CartItemsDto items) {
 		CartItemsDto item = service.addItemToCart(cartId, items);
 		System.out.println(item);
 		ApiResponse<String> response=new ApiResponse<>();

@@ -14,6 +14,7 @@ import com.example.demo.entity.Roles;
 import com.example.demo.entity.User;
 import com.example.demo.repo.RolesRepo;
 import com.example.demo.repo.UserRepository;
+import com.security.JwtUtil;
 
 @Service
 public class AuthServiceImpl implements authService{
@@ -22,10 +23,13 @@ public class AuthServiceImpl implements authService{
 	private UserRepository userRepo;
 	@Autowired
 	private RolesRepo roleRepo;
-	@Autowired
-	private JwtService jwtService;
+//	@Autowired
+//	private JwtUtils
+//	private JwtService jwtService;
 	@Autowired
 	private PasswordEncoder encoder;
+	@Autowired
+	private JwtUtil jwt;
 	
 	@Override
 	public User saveUser(RegisterDto rDto) {
@@ -56,11 +60,11 @@ public class AuthServiceImpl implements authService{
 	@Override
 	public String token(String email) {
 		List<String> roles = userRepo.findRoleNames(email);
-		return jwtService.generateToken(email,roles);
+		return jwt.generateToken(email,roles);
 	}
 	@Override
 	public void validateToken(String token) {
-	   jwtService.validateToken(token);
+	   jwt.validateToken(token);
 	}
 
 	@Override
