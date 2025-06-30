@@ -1,0 +1,30 @@
+version:"3"
+ service :
+	mysqldb:
+	    image: mysql:5.7
+	    networks:
+	      - Auth-net
+	    environment:
+	      - MYSQL_ROOT_PASSWORD=root
+	      - MYSQL_DATABASE=sbms
+	    volumes:
+	      - /data/mysql
+		  
+	AuthService :
+		image: auth
+		networks:
+			-Auth-net
+		port :
+			- "8081:8081"
+		depends_on :
+			- mysqldb
+		volume :
+			/data/auth-app	
+					
+			
+
+	networks:
+		Auth-net
+		
+		
+			  		  
