@@ -1,4 +1,11 @@
-FROM openjdk:17
-COPY target/08-ReportsService-0.0.1-SNAPSHOT.jar app/ecom/
-WORKDIR /app/ecom/
-ENTRYPOINT [ "java","-jar","08-ReportsService-0.0.1-SNAPSHOT.jar"]
+# === Stage 1: Build JAR ===
+FROM maven:3.9.6 AS builder
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+# === Stage 2: Run JAR ===
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
