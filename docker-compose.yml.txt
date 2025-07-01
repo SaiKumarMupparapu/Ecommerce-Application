@@ -1,0 +1,130 @@
+version: "3"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=Ecommerce
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - ecommerce-net
+
+  serviceregistry:
+    build: ./01-ServiceRegistery
+    container_name: serviceregistry
+    ports:
+      - "8761:8761"
+    networks:
+      - ecommerce-net
+adminserver:
+    build: ./02-AdminServer
+    container_name: adminserver
+    ports:
+      - "9090:9090"
+    depends_on:
+      - serviceregistry
+    networks:
+      - ecommerce-net
+
+
+  authservice:
+    build: ./04-AuthenticationService
+    container_name: authservice
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+      - serviceregistry
+
+    environment:
+    #  - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/Ecommerce
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+
+     networks:
+      - ecommerce-net
+
+  productservice:
+    build: ./05-ProductService
+    container_name: productservice
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+      - serviceregistry
+
+    networks:
+      - ecommerce-net
+
+  cartservice:
+    build: ./06-CartService
+    container_name: cartservice
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mysql
+      - serviceregistry
+      - configserver
+    networks:
+      - ecommerce-net
+ orderservice:
+    build: ./07-OrderService
+    container_name: orderservice
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mysql
+      - serviceregistry
+
+    networks:
+      - ecommerce-net
+
+  reportsservice:
+    build: ./08-ReportsService
+    container_name: reportsservice
+    ports:
+      - "8085:8085"
+    depends_on:
+      - mysql
+      - serviceregistry
+
+    networks:
+      - ecommerce-net
+paymentservice:
+    build: ./09-PaymentService
+    container_name: paymentservice
+    ports:
+      - "8086:8086"
+    depends_on:
+      - mysql
+      - serviceregistry
+
+    networks:
+      - ecommerce-net
+
+  apigateway:
+    build: ./10-ApiGatewayService
+    container_name: apigateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - serviceregistry
+      - authservice
+      - productservice
+      - orderservice
+      - cartservice
+      - paymentservice
+    networks:
+      - ecommerce-net
+volumes:
+  mysql-data:
+
+networks:
+  ecommerce-net:
+
